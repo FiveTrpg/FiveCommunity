@@ -1,4 +1,4 @@
-name: UT
+name: Core
 
 on:
   push:
@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore FiveCore.Test
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build FiveCore.Test --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test FiveCore.Test --no-build --verbosity normal
