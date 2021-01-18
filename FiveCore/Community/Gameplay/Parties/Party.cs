@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FiveCore.Community.Gameplay
+namespace FiveCore.Community.Gameplay.Parties
 {
     public partial class Party : IParty
     {
-        public List<IPlayer> Players { get; set; }
+        public List<IPlayer> Players { get; set; } = new List<IPlayer>();
 
         public string Identity { get; set; }
         public IPlayer Owner { get; set; }

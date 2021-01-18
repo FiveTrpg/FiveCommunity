@@ -1,21 +1,22 @@
-﻿using System;
+﻿using FiveCore.Community.Gameplay.Parties;
+using System;
 using System.Collections.Generic;
 
 namespace FiveCore.Community.Gameplay
 {
     public class Lobby : ILobby
     {
-        public List<IParty> Parties { get; set; }
-        public Dictionary<IPlayer, IParty> PlayerLocation { get; set; }
-        public Dictionary<string, IPlayer> Players { get; set; }
+        public List<IParty> Parties { get; set; } = new List<IParty>();
+        public Dictionary<IPlayer, IParty> PlayerLocation { get; set; } = new Dictionary<IPlayer, IParty>();
+        public Dictionary<string, IPlayer> Players { get; set; } = new Dictionary<string, IPlayer>();
 
         public event Action<IPlayer, IParty> OnPartyCreated;
+        public static Party Party => Party.Lobby;
 
         public Lobby()
         {
             Party.Factory.OnPartyCreated += Factory_OnPartyCreated;
             RegisterEventToParty(Party.Lobby);
-
         }
 
         public void RegisterEventToParty(IParty party)
@@ -26,7 +27,12 @@ namespace FiveCore.Community.Gameplay
 
         private void Party_OnClosed(IParty obj) => Parties.Remove(obj);
 
-        private void Factory_OnPartyCreated(IParty obj) => Parties.Add(obj);
+        private void Factory_OnPartyCreated(IParty party)
+        {
+            OnPartyCreated?.Invoke(party.Owner, party);
+            RegisterEventToParty(party);
+            Parties.Add(party);
+        }
 
         private void Lobby_OnJoined(IParty party, IPlayer player)
         {

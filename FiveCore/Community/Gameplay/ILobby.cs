@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FiveCore.Community.Gameplay.Parties;
+using System;
 using System.Collections.Generic;
 
 namespace FiveCore.Community.Gameplay

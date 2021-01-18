@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FiveCore.Community.Gameplay
+namespace FiveCore.Community.Gameplay.Parties
 {
     public partial class Party
     {
@@ -8,6 +8,7 @@ namespace FiveCore.Community.Gameplay
         {
             Name = "Lobby",
             Identity = "Lobby",
+            MaxPlayer = int.MaxValue,
         };
 
         public static PartyFactory Factory { get; } = new PartyFactory();
@@ -26,6 +27,7 @@ namespace FiveCore.Community.Gameplay
                     Password = password,
                     MaxPlayer = maxPalyer,
                 };
+                OnPartyCreated?.Invoke(party);
                 return PartyCreateResult.Success;
             }
         }

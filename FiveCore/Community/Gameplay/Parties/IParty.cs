@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FiveCore.Community.Gameplay
+namespace FiveCore.Community.Gameplay.Parties
 {
     public interface IParty
     {

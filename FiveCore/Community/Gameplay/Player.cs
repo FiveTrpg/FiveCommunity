@@ -1,4 +1,6 @@
-﻿namespace FiveCore.Community.Gameplay
+﻿using FiveCore.Community.Gameplay.Parties;
+
+namespace FiveCore.Community.Gameplay
 {
     public class Player : IPlayer
     {
@@ -14,13 +16,18 @@
         {
             var result = Party.Factory.Create(this, name, password, maxPalyer, out var party);
             if (result == PartyCreateResult.Success) CurrentParty = party;
-
+            JoinParty(party, password);
             return result;
         }
 
         public PartyJoinResult JoinParty(IParty party, string password = "")
         {
-            return party.Join(this, password);
+            var result = party.Join(this, password);
+            if (result == PartyJoinResult.Success)
+            {
+                CurrentParty = party;
+            }
+            return result;
         }
 
         public PartyLeaveResult Leave()

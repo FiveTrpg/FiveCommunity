@@ -1,4 +1,4 @@
-﻿namespace FiveCore.Community.Gameplay
+﻿namespace FiveCore.Community.Gameplay.Parties
 {
     public enum PartyTransformResult
     {

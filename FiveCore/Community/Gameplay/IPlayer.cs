@@ -1,4 +1,6 @@
-﻿namespace FiveCore.Community.Gameplay
+﻿using FiveCore.Community.Gameplay.Parties;
+
+namespace FiveCore.Community.Gameplay
 {
     public interface IPlayer
     {
