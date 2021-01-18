@@ -24,6 +24,7 @@ jobs:
     - name: Test
       run: dotnet test --collect:"XPlat Code Coverage" --results-directory ./TestResult  --no-build --verbosity normal
     - name: Codecov
-        uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v1
+      with:
         directory: TestResult
         files: ./coverage.cobertura.xml
