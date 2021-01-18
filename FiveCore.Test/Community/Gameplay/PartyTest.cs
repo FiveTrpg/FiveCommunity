@@ -22,6 +22,10 @@ namespace FiveCore.Test.Community.Gameplay
             {
                 Identity = Guid.NewGuid().ToString(),
                 Name = "Remilia",
+                Gender = "♂",
+                Race = "吸血鬼",
+                Age = "Unknown",
+                Location = "Gensokyo"
             };
             flandre = new Player()
             {
