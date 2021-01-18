@@ -26,6 +26,7 @@ namespace FiveCore.Community.Gameplay.Parties
                     Name = name,
                     Password = password,
                     MaxPlayer = maxPalyer,
+                    Owner = player,
                 };
                 OnPartyCreated?.Invoke(party);
                 return PartyCreateResult.Success;

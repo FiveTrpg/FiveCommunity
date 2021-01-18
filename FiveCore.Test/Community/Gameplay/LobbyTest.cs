@@ -43,6 +43,7 @@ namespace FiveCore.Test.Community.Gameplay
             Assert.AreEqual(name, party.Name);
             Assert.AreEqual(password, party.Password);
             Assert.AreEqual(maxPlayer, party.MaxPlayer);
+            Assert.AreEqual(player, party.Owner);
         }
     }
 }
