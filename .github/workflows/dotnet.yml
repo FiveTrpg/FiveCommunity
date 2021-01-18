@@ -22,4 +22,8 @@ jobs:
     - name: Build
       run: dotnet build FiveCore.Test --no-restore
     - name: Test
-      run: dotnet test FiveCore.Test --no-build --verbosity normal
+      run: dotnet test --collect:"XPlat Code Coverage" --results-directory ./TestResult  --no-build --verbosity normal
+    - name: Codecov
+        uses: codecov/codecov-action@v1
+        directory: TestResult
+        files: ./coverage.cobertura.xml
