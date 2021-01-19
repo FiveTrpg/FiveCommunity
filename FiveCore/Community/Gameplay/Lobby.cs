@@ -1,4 +1,5 @@
-﻿using FiveCore.Community.Gameplay.Parties;
+﻿using FiveCore.Community.Gameplay.Npcs;
+using FiveCore.Community.Gameplay.Parties;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +17,8 @@ namespace FiveCore.Community.Gameplay
         public Lobby()
         {
             Party.Factory.OnPartyCreated += Factory_OnPartyCreated;
-            RegisterEventToParty(Party.Lobby);
+            RegisterEventToParty(Lobby.Party);
+            Lobby.Party.Join(Core.Instance);
         }
 
         public void RegisterEventToParty(IParty party)
@@ -29,14 +31,18 @@ namespace FiveCore.Community.Gameplay
 
         private void Factory_OnPartyCreated(IParty party)
         {
-            OnPartyCreated?.Invoke(party.Owner, party);
-            RegisterEventToParty(party);
-            Parties.Add(party);
+            if (party.Owner is IPlayer player)
+            {
+                OnPartyCreated?.Invoke(player, party);
+                RegisterEventToParty(party);
+                Parties.Add(party);
+            }
         }
 
-        private void Lobby_OnJoined(IParty party, IPlayer player)
+        private void Lobby_OnJoined(IParty party, IPartyMember member)
         {
-            PlayerLocation[player] = party;
+            if (member is IPlayer player)
+                PlayerLocation[player] = party;
         }
 
         public PartyJoinResult Login(IPlayer player)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FiveCore.Community.Gameplay.Npcs;
+using System;
 
 namespace FiveCore.Community.Gameplay.Parties
 {
@@ -9,6 +10,7 @@ namespace FiveCore.Community.Gameplay.Parties
             Name = "Lobby",
             Identity = "Lobby",
             MaxPlayer = int.MaxValue,
+            Owner = Core.Instance,
         };
 
         public static PartyFactory Factory { get; } = new PartyFactory();
@@ -16,10 +18,10 @@ namespace FiveCore.Community.Gameplay.Parties
         {
             public event Action<IParty> OnPartyCreated;
 
-            public PartyCreateResult Create(IPlayer player, string name, string password, int maxPalyer, out IParty party)
+            public PartyCreateResult Create(IPartyMember player, string name, string password, int maxPalyer, out IParty party)
             {
                 party = null;
-                if (!Lobby.Players.Contains(player)) return PartyCreateResult.CreatorNotInLobby;
+                if (!Lobby.Members.Contains(player)) return PartyCreateResult.CreatorNotInLobby;
                 party = new Party()
                 {
                     Identity = Guid.NewGuid().ToString(),

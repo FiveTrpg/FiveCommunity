@@ -5,54 +5,54 @@ namespace FiveCore.Community.Gameplay.Parties
 {
     public partial class Party : IParty
     {
-        public List<IPlayer> Players { get; set; } = new List<IPlayer>();
+        public List<IPartyMember> Members { get; set; } = new List<IPartyMember>();
 
         public string Identity { get; set; }
-        public IPlayer Owner { get; set; }
+        public IPartyMember Owner { get; set; }
         public string Name { get; set; }
         public string Password { get; set; } = string.Empty;
         public int MaxPlayer { get; set; }
         public bool Ended { get; set; }
 
         public event Action<IParty> OnClosed;
-        public event Action<IParty, IPlayer> OnJoined;
-        public event Action<IParty, IPlayer> OnLeaved;
-        public event Action<IParty, IPlayer> OnKicked;
-        public event Action<IParty, IPlayer, IPlayer> OnTransforOwner;
+        public event Action<IParty, IPartyMember> OnJoined;
+        public event Action<IParty, IPartyMember> OnLeaved;
+        public event Action<IParty, IPartyMember> OnKicked;
+        public event Action<IParty, IPartyMember, IPartyMember> OnTransforOwner;
 
-        public PartyJoinResult Join(IPlayer player, string password = "")
+        public PartyJoinResult Join(IPartyMember member, string password = "")
         {
             if (Ended) return PartyJoinResult.PartyEnded;
             if (Password != string.Empty && Password != password) return PartyJoinResult.PasswordIncorrect;
-            if (Players.Count > MaxPlayer) return PartyJoinResult.PartyFull;
-            if (Players.Contains(player)) return PartyJoinResult.PlayerAlreadyJoin;
+            if (Members.Count > MaxPlayer) return PartyJoinResult.PartyFull;
+            if (Members.Contains(member)) return PartyJoinResult.PlayerAlreadyJoin;
 
-            Players.Add(player);
-            OnJoined?.Invoke(this, player);
+            Members.Add(member);
+            OnJoined?.Invoke(this, member);
             return PartyJoinResult.Success;
         }
 
-        public PartyLeaveResult Leave(IPlayer player)
+        public PartyLeaveResult Leave(IPartyMember member)
         {
-            if (!Players.Contains(player)) return PartyLeaveResult.PlayerNotInParty;
+            if (!Members.Contains(member)) return PartyLeaveResult.PlayerNotInParty;
 
-            Players.Remove(player);
-            OnLeaved?.Invoke(this, player);
+            Members.Remove(member);
+            OnLeaved?.Invoke(this, member);
             return PartyLeaveResult.Success;
         }
 
-        public PartyKickResult Kick(IPlayer @operator, IPlayer aimPlayer)
+        public PartyKickResult Kick(IPartyMember @operator, IPartyMember aimMember)
         {
             if (@operator != Owner) return PartyKickResult.Deny;
-            if (!Players.Contains(aimPlayer)) return PartyKickResult.PlayerNotInParty;
-            if (@operator == aimPlayer) return PartyKickResult.CantKickThyself;
+            if (!Members.Contains(aimMember)) return PartyKickResult.PlayerNotInParty;
+            if (@operator == aimMember) return PartyKickResult.CantKickThyself;
 
-            Players.Remove(aimPlayer);
-            OnKicked?.Invoke(this, aimPlayer);
+            Members.Remove(aimMember);
+            OnKicked?.Invoke(this, aimMember);
             return PartyKickResult.Success;
         }
 
-        public PartyTransformResult TransforOwner(IPlayer from, IPlayer to)
+        public PartyTransformResult TransforOwner(IPartyMember from, IPartyMember to)
         {
             if (Owner != from) return PartyTransformResult.Deny;
 
@@ -61,7 +61,7 @@ namespace FiveCore.Community.Gameplay.Parties
             return PartyTransformResult.Success;
         }
 
-        public PartyCloseResult Close(IPlayer @operator)
+        public PartyCloseResult Close(IPartyMember @operator)
         {
             if (Ended) return PartyCloseResult.PartyAlreadyEnd;
             if (@operator != Owner) return PartyCloseResult.Deny;

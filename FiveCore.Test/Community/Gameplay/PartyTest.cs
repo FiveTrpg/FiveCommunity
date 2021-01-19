@@ -43,9 +43,9 @@ namespace FiveCore.Test.Community.Gameplay
         {
             var party = lobby.PlayerLocation[remilia];
 
-            Assert.That(party.Players, Has.No.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.No.One.EqualTo(flandre));
             Assert.That(flandre.JoinParty(party), Is.EqualTo(PartyJoinResult.PasswordIncorrect));
-            Assert.That(party.Players, Has.No.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.No.One.EqualTo(flandre));
         }
 
         [Test]
@@ -53,9 +53,9 @@ namespace FiveCore.Test.Community.Gameplay
         {
             var party = lobby.PlayerLocation[remilia];
 
-            Assert.That(party.Players, Has.No.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.No.One.EqualTo(flandre));
             Assert.That(flandre.JoinParty(party, password), Is.EqualTo(PartyJoinResult.Success));
-            Assert.That(party.Players, Has.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.One.EqualTo(flandre));
         }
 
         [Test]
@@ -63,9 +63,9 @@ namespace FiveCore.Test.Community.Gameplay
         {
             PlayerJoinPartyWithCorrectPassword();
             var party = flandre.CurrentParty;
-            Assert.That(party.Players, Has.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.One.EqualTo(flandre));
             Assert.That(flandre.Leave(), Is.EqualTo(PartyLeaveResult.Success));
-            Assert.That(party.Players, Has.No.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.No.One.EqualTo(flandre));
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace FiveCore.Test.Community.Gameplay
             PlayerJoinPartyWithCorrectPassword();
             var party = remilia.CurrentParty;
 
-            Assert.That(party.Players, Has.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.One.EqualTo(flandre));
             Assert.That(party.Kick(@operator: remilia, aimPlayer: flandre), Is.EqualTo(PartyKickResult.Success));
-            Assert.That(party.Players, Has.No.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.No.One.EqualTo(flandre));
         }
 
         [Test]
@@ -85,9 +85,9 @@ namespace FiveCore.Test.Community.Gameplay
             PlayerJoinPartyWithCorrectPassword();
             var party = remilia.CurrentParty;
 
-            Assert.That(party.Players, Has.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.One.EqualTo(flandre));
             Assert.That(party.Kick(@operator: remilia, aimPlayer: remilia), Is.EqualTo(PartyKickResult.CantKickThyself));
-            Assert.That(party.Players, Has.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.One.EqualTo(flandre));
         }
 
         [Test]
@@ -96,10 +96,10 @@ namespace FiveCore.Test.Community.Gameplay
             PlayerJoinPartyWithCorrectPassword();
             var party = remilia.CurrentParty;
 
-            Assert.That(party.Players, Has.One.EqualTo(remilia));
+            Assert.That(party.Members, Has.One.EqualTo(remilia));
             Assert.That(party.Owner, Is.Not.EqualTo(flandre));
             Assert.That(party.Kick(@operator: flandre, aimPlayer: remilia), Is.EqualTo(PartyKickResult.Deny));
-            Assert.That(party.Players, Has.One.EqualTo(remilia));
+            Assert.That(party.Members, Has.One.EqualTo(remilia));
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace FiveCore.Test.Community.Gameplay
             var party = remilia.CurrentParty;
             PlayerCloseParty();
             Assert.That(flandre.JoinParty(party, password), Is.EqualTo(PartyJoinResult.PartyEnded));
-            Assert.That(party.Players, Has.No.One.EqualTo(flandre));
+            Assert.That(party.Members, Has.No.One.EqualTo(flandre));
         }
 
         [Test]

@@ -1,4 +1,5 @@
 ﻿using FiveCore.Community.Gameplay;
+using FiveCore.Community.Gameplay.Npcs;
 using FiveCore.Community.Gameplay.Parties;
 using NUnit.Framework;
 using System;
@@ -21,6 +22,14 @@ namespace FiveCore.Test.Community.Gameplay
 
             lobby = new Lobby();
             Assert.AreEqual(lobby.Login(player), PartyJoinResult.Success);
+        }
+
+        [Test]
+        public void LobbyOwnerIsSystem()
+        {
+            Assert.That(Core.Instance.CurrentParty, Is.Null);
+            Assert.That(Lobby.Party.Owner, Is.EqualTo(Core.Instance));
+            Assert.That(Lobby.Party.Members, Has.One.EqualTo(Core.Instance));
         }
 
         [Test]
