@@ -7,12 +7,12 @@ using System;
 
 namespace FiveCore.Test.Community.Gameplay
 {
-    public class LobbyTest : GameplayEnviroment
+    public class LobbyTestForLobbyNotCreated : GameplayEnviroment
     {
         private IPlayer player { get; set; }
         private ILobby lobby { get; set; }
         private IContainer game { get; set; }
-        private Core core { get; set; }
+        private ICore core { get; set; }
 
         [SetUp]
         public void Setup()
@@ -25,51 +25,21 @@ namespace FiveCore.Test.Community.Gameplay
             player.Identity = Guid.NewGuid().ToString();
             player.Name = "Remilia";
 
-            core = game.Resolve<Core>();
+            core = game.Resolve<ICore>();
+            Assert.That(core.NpcType, Is.EqualTo(NpcType.Observer));
+        }
 
+        [Test]
+        public void PlayerCanJoinWhenLobbyPartyCreated()
+        {
+            core.CreateLobbyParty();
             Assert.AreEqual(lobby.Login(player), PartyJoinResult.Success);
         }
 
         [Test]
-        public void LobbyOwnerIsSystem()
+        public void PlayerCantJoinWhenLobbyPartyCreated()
         {
-            Assert.That(core.CurrentParty, Is.EqualTo(lobby.Party));
-            Assert.That(lobby.Party.Owner, Is.EqualTo(core));
-            Assert.That(lobby.Party.Members, Has.One.EqualTo(core));
-        }
-
-        [Test]
-        public void PlayerJoinLobby()
-        {
-            Assert.IsTrue(lobby.PlayerLocation.ContainsKey(player));
-            Assert.AreEqual(lobby.Party, lobby.PlayerLocation[player]);
-        }
-
-        [Test]
-        public void PlayerCreatePartyWithArguments()
-        {
-            var name = "Party";
-            var password = "passw@rd";
-            var maxPlayer = 19;
-            Assert.AreEqual(PartyCreateResult.Success, player.Create(name, password, maxPlayer));
-            Assert.AreEqual(1, lobby.Parties.Count);
-            var party = lobby.Parties[0];
-            Assert.AreEqual(party, lobby.PlayerLocation[player]);
-            Assert.AreEqual(name, party.Name);
-            Assert.AreEqual(password, party.Password);
-            Assert.AreEqual(maxPlayer, party.MaxPlayer);
-            Assert.AreEqual(player, party.Owner);
-        }
-
-        [Test]
-        public void PlayerCreatePartyWhenNotInLobby()
-        {
-            PlayerCreatePartyWithArguments();
-            var name = "Party2";
-            var password = "passw@rd";
-            var maxPlayer = 19;
-            Assert.AreEqual(PartyCreateResult.CreatorNotInLobby, player.Create(name, password, maxPlayer));
-            Assert.AreEqual(1, lobby.Parties.Count);
+            Assert.AreEqual(lobby.Login(player), PartyJoinResult.PartyNotExist);
         }
     }
 }

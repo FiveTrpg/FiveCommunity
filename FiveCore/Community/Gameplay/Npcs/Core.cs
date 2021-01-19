@@ -2,7 +2,7 @@
 
 namespace FiveCore.Community.Gameplay.Npcs
 {
-    public class Core : INpc
+    public class Core : ICore
     {
         public string Identity { get; set; } = "0134F9C9-AB14-4B76-9675-035EEE98FD8A";
         public string Name { get; set; } = "Core (System)";
@@ -19,9 +19,6 @@ namespace FiveCore.Community.Gameplay.Npcs
         {
             Lobby = lobby;
             PartyFactory = partyFactory;
-
-            ((IPartyMember)this).Create("Lobby", "", int.MaxValue);
-            Lobby.Party = this.CurrentParty;
 
         }
     }

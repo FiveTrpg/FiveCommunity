@@ -8,6 +8,7 @@
 
         public PartyJoinResult JoinParty(IParty party, string password = "")
         {
+            if (party == null) return PartyJoinResult.PartyNotExist;
             var result = party.Join(this, password);
             if (result == PartyJoinResult.Success)
             {
@@ -16,14 +17,14 @@
             return result;
         }
 
-        public PartyLeaveResult Leave()
+        public PartyLeaveResult LeaveParty()
         {
             if (CurrentParty == Lobby.Party) return PartyLeaveResult.PlayerNotInParty;
 
             return CurrentParty.Leave(this);
         }
 
-        public PartyCreateResult Create(string name, string password, int maxPalyer)
+        public PartyCreateResult CreateParty(string name, string password, int maxPalyer)
         {
             var result = PartyFactory.Create(this, name, password, maxPalyer, out var party);
             if (result == PartyCreateResult.CreatorNotInLobby) return result;

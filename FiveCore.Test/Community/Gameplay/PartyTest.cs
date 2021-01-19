@@ -13,6 +13,7 @@ namespace FiveCore.Test.Community.Gameplay
         private IPlayer flandre { get; set; }
         private ILobby lobby { get; set; }
         private IContainer game { get; set; }
+        private ICore core { get; set; }
 
         private string name = "Party";
         private string password = "passw@rd";
@@ -23,7 +24,8 @@ namespace FiveCore.Test.Community.Gameplay
         {
             SetupEnviroment();
             game = Build();
-            game.Resolve<Core>();
+            core = game.Resolve<ICore>();
+            core.CreateLobbyParty();
             remilia = game.Resolve<IPlayer>();
             remilia.Identity = Guid.NewGuid().ToString();
             remilia.Name = "Remilia";
@@ -38,7 +40,7 @@ namespace FiveCore.Test.Community.Gameplay
 
             lobby = game.Resolve<ILobby>();
             Assert.AreEqual(lobby.Login(remilia), PartyJoinResult.Success);
-            Assert.AreEqual(PartyCreateResult.Success, remilia.Create(name, password, maxPlayer));
+            Assert.AreEqual(PartyCreateResult.Success, remilia.CreateParty(name, password, maxPlayer));
         }
 
         [Test]
@@ -67,7 +69,7 @@ namespace FiveCore.Test.Community.Gameplay
             PlayerJoinPartyWithCorrectPassword();
             var party = flandre.CurrentParty;
             Assert.That(party.Members, Has.One.EqualTo(flandre));
-            Assert.That(flandre.Leave(), Is.EqualTo(PartyLeaveResult.Success));
+            Assert.That(flandre.LeaveParty(), Is.EqualTo(PartyLeaveResult.Success));
             Assert.That(party.Members, Has.No.One.EqualTo(flandre));
         }
 
@@ -165,6 +167,13 @@ namespace FiveCore.Test.Community.Gameplay
             Assert.That(party.Owner, Is.Not.EqualTo(flandre));
             Assert.That(party.Close(flandre), Is.EqualTo(PartyCloseResult.Deny));
             Assert.That(party.Ended, Is.Not.True);
+        }
+
+        [Test]
+        public void CoreCanJoiEveryParty()
+        {
+            Assert.That(((IPartyMember)core).JoinParty(remilia.CurrentParty, remilia.CurrentParty.Password),
+                Is.EqualTo(PartyJoinResult.Success));
         }
     }
 }

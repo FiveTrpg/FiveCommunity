@@ -1,8 +1,6 @@
-﻿using FiveCore.Community.Gameplay.Parties;
-
-namespace FiveCore.Community.Gameplay.Npcs
+﻿namespace FiveCore.Community.Gameplay.Npcs
 {
-    public interface INpc : IUniqued, IPartyMember
+    public interface INpc : IUniqued
     {
         public NpcType NpcType { get; }
     }

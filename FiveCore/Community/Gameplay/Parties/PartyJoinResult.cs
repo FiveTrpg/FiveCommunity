@@ -7,5 +7,6 @@
         PlayerAlreadyJoin = 2,
         PasswordIncorrect = 3,
         PartyEnded = 4,
+        PartyNotExist = 5,
     }
 }

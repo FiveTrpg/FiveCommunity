@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Autofac;
+using System;
 
 namespace FiveCore.Community.Gameplay.Parties
 {
     public class PartyFactory : IPartyFactory
     {
+        private ILifetimeScope Scope { get; }
         public ILobby Lobby { get; }
-        public PartyFactory(ILobby lobby)
+        public PartyFactory(ILifetimeScope scope)
         {
-            Lobby = lobby;
-            this.OnPartyCreated += lobby.OnPartyCreated;
+            Scope = scope;
+            Lobby = Scope.Resolve<ILobby>();
+            this.OnPartyCreated += Lobby.OnPartyCreated;
         }
 
         public event Action<IParty> OnPartyCreated;
@@ -18,14 +21,12 @@ namespace FiveCore.Community.Gameplay.Parties
             party = null;
             if (Lobby.Party != null && !Lobby.Party.Members.Contains(player))
                 return PartyCreateResult.CreatorNotInLobby;
-            party = new Party()
-            {
-                Identity = Guid.NewGuid().ToString(),
-                Name = name,
-                Password = password,
-                MaxPlayer = maxPalyer,
-                Owner = player,
-            };
+            party = Scope.Resolve<IParty>();
+            party.Identity = Guid.NewGuid().ToString();
+            party.Name = name;
+            party.Password = password;
+            party.MaxPlayer = maxPalyer;
+            party.Owner = player;
             OnPartyCreated?.Invoke(party);
             return PartyCreateResult.Success;
         }
