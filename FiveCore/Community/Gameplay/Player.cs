@@ -11,5 +11,17 @@ namespace FiveCore.Community.Gameplay
         public string Age { get; set; }
         public string Location { get; set; }
         public IParty CurrentParty { get; set; }
+
+        private ILobby Lobby { get; }
+        private IPartyFactory PartyFactory { get; }
+
+        ILobby IPartyMember.Lobby => Lobby;
+        IPartyFactory IPartyMember.PartyFactory => PartyFactory;
+
+        public Player(ILobby lobby, IPartyFactory partyFactory)
+        {
+            Lobby = lobby;
+            PartyFactory = partyFactory;
+        }
     }
 }

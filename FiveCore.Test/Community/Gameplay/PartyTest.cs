@@ -1,15 +1,18 @@
-﻿using FiveCore.Community.Gameplay;
+﻿using Autofac;
+using FiveCore.Community.Gameplay;
+using FiveCore.Community.Gameplay.Npcs;
 using FiveCore.Community.Gameplay.Parties;
 using NUnit.Framework;
 using System;
 
 namespace FiveCore.Test.Community.Gameplay
 {
-    public class PartyTest
+    public class PartyTest : GameplayEnviroment
     {
         private IPlayer remilia { get; set; }
         private IPlayer flandre { get; set; }
         private ILobby lobby { get; set; }
+        private IContainer game { get; set; }
 
         private string name = "Party";
         private string password = "passw@rd";
@@ -18,22 +21,22 @@ namespace FiveCore.Test.Community.Gameplay
         [SetUp]
         public void Setup()
         {
-            remilia = new Player()
-            {
-                Identity = Guid.NewGuid().ToString(),
-                Name = "Remilia",
-                Gender = "♂",
-                Race = "吸血鬼",
-                Age = "Unknown",
-                Location = "Gensokyo"
-            };
-            flandre = new Player()
-            {
-                Identity = Guid.NewGuid().ToString(),
-                Name = "Flandre",
-            };
+            SetupEnviroment();
+            game = Build();
+            game.Resolve<Core>();
+            remilia = game.Resolve<IPlayer>();
+            remilia.Identity = Guid.NewGuid().ToString();
+            remilia.Name = "Remilia";
+            remilia.Gender = "♂";
+            remilia.Race = "吸血鬼";
+            remilia.Age = "Unknown";
+            remilia.Location = "Gensokyo";
 
-            lobby = new Lobby();
+            flandre = game.Resolve<IPlayer>();
+            flandre.Identity = Guid.NewGuid().ToString();
+            flandre.Name = "Flandre";
+
+            lobby = game.Resolve<ILobby>();
             Assert.AreEqual(lobby.Login(remilia), PartyJoinResult.Success);
             Assert.AreEqual(PartyCreateResult.Success, remilia.Create(name, password, maxPlayer));
         }

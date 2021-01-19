@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FiveCore.Community.Gameplay.Parties
 {
-    public partial class Party : IParty
+    public class Party : IParty
     {
         public List<IPartyMember> Members { get; set; } = new List<IPartyMember>();
 
@@ -19,6 +19,7 @@ namespace FiveCore.Community.Gameplay.Parties
         public event Action<IParty, IPartyMember> OnLeaved;
         public event Action<IParty, IPartyMember> OnKicked;
         public event Action<IParty, IPartyMember, IPartyMember> OnTransforOwner;
+
 
         public PartyJoinResult Join(IPartyMember member, string password = "")
         {

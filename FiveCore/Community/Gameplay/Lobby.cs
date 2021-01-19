@@ -1,6 +1,4 @@
-﻿using FiveCore.Community.Gameplay.Npcs;
-using FiveCore.Community.Gameplay.Parties;
-using System;
+﻿using FiveCore.Community.Gameplay.Parties;
 using System.Collections.Generic;
 
 namespace FiveCore.Community.Gameplay
@@ -11,30 +9,33 @@ namespace FiveCore.Community.Gameplay
         public Dictionary<IPlayer, IParty> PlayerLocation { get; set; } = new Dictionary<IPlayer, IParty>();
         public Dictionary<string, IPlayer> Players { get; set; } = new Dictionary<string, IPlayer>();
 
-        public event Action<IPlayer, IParty> OnPartyCreated;
-        public static Party Party => Party.Lobby;
-
-        public Lobby()
-        {
-            Party.Factory.OnPartyCreated += Factory_OnPartyCreated;
-            RegisterEventToParty(Lobby.Party);
-            Lobby.Party.Join(Core.Instance);
-        }
+        public IParty Party { get; set; }
 
         public void RegisterEventToParty(IParty party)
         {
             party.OnJoined += Lobby_OnJoined;
             party.OnClosed += Party_OnClosed;
+            party.OnLeaved += Party_OnLeaved;
+        }
+
+        private void Party_OnLeaved(IParty party, IPartyMember member)
+        {
+            if (member is IPlayer)
+            {
+                if (party != Party)
+                {
+                    member.JoinParty(Party);
+                }
+            }
         }
 
         private void Party_OnClosed(IParty obj) => Parties.Remove(obj);
 
-        private void Factory_OnPartyCreated(IParty party)
+        public void OnPartyCreated(IParty party)
         {
+            RegisterEventToParty(party);
             if (party.Owner is IPlayer player)
             {
-                OnPartyCreated?.Invoke(player, party);
-                RegisterEventToParty(party);
                 Parties.Add(party);
             }
         }
@@ -49,7 +50,7 @@ namespace FiveCore.Community.Gameplay
         {
             if (!Players.ContainsKey(player.Identity)) Players.Add(player.Identity, player);
 
-            return player.JoinParty(Party.Lobby);
+            return player.JoinParty(Party);
         }
     }
 }

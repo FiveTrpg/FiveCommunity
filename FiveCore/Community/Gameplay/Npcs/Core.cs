@@ -2,11 +2,27 @@
 
 namespace FiveCore.Community.Gameplay.Npcs
 {
-    public class Core : IUniqued, IPartyMember
+    public class Core : INpc
     {
-        public static readonly Core Instance = new Core();
         public string Identity { get; set; } = "0134F9C9-AB14-4B76-9675-035EEE98FD8A";
         public string Name { get; set; } = "Core (System)";
         public IParty CurrentParty { get; set; }
+
+        public NpcType NpcType => NpcType.Observer;
+
+        private ILobby Lobby { get; }
+        private IPartyFactory PartyFactory { get; }
+        ILobby IPartyMember.Lobby => Lobby;
+        IPartyFactory IPartyMember.PartyFactory => PartyFactory;
+
+        public Core(ILobby lobby, IPartyFactory partyFactory)
+        {
+            Lobby = lobby;
+            PartyFactory = partyFactory;
+
+            ((IPartyMember)this).Create("Lobby", "", int.MaxValue);
+            Lobby.Party = this.CurrentParty;
+
+        }
     }
 }
