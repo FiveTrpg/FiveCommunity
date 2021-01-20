@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using FiveCore.Community.Gameplay;
-using FiveCore.Community.Gameplay.Npcs;
+using FiveCore.Community.Gameplay.Characters;
+using FiveCore.Community.Gameplay.Characters.Npcs;
 using FiveCore.Community.Gameplay.Parties;
 using FiveCore.Community.Utilities;
 using NUnit.Framework;

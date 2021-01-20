@@ -1,6 +1,6 @@
 ﻿using FiveCore.Community.Gameplay.Parties;
 
-namespace FiveCore.Community.Gameplay
+namespace FiveCore.Community.Gameplay.Characters
 {
     public class Player : IPlayer
     {

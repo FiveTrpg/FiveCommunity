@@ -1,4 +1,4 @@
-﻿namespace FiveCore.Community.Gameplay.Npcs
+﻿namespace FiveCore.Community.Gameplay.Characters.Npcs
 {
     public enum NpcType
     {

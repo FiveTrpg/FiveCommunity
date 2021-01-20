@@ -1,6 +1,6 @@
 ﻿using FiveCore.Community.Gameplay.Parties;
 
-namespace FiveCore.Community.Gameplay.Npcs
+namespace FiveCore.Community.Gameplay.Characters.Npcs
 {
     public class Core : ICore
     {

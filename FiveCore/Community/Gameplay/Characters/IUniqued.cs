@@ -1,4 +1,4 @@
-﻿namespace FiveCore.Community.Gameplay
+﻿namespace FiveCore.Community.Gameplay.Characters
 {
     public interface IUniqued
     {
