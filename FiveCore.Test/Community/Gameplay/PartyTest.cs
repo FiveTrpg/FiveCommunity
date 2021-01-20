@@ -2,12 +2,13 @@
 using FiveCore.Community.Gameplay;
 using FiveCore.Community.Gameplay.Npcs;
 using FiveCore.Community.Gameplay.Parties;
+using FiveCore.Community.Utilities;
 using NUnit.Framework;
 using System;
 
 namespace FiveCore.Test.Community.Gameplay
 {
-    public class PartyTest : GameplayEnviroment
+    public class PartyTest
     {
         private IPlayer remilia { get; set; }
         private IPlayer flandre { get; set; }
@@ -22,8 +23,7 @@ namespace FiveCore.Test.Community.Gameplay
         [SetUp]
         public void Setup()
         {
-            SetupEnviroment();
-            game = Build();
+            game = GameplayContainer.Game();
             core = game.Resolve<ICore>();
             core.CreateLobbyParty();
             remilia = game.Resolve<IPlayer>();
@@ -170,9 +170,9 @@ namespace FiveCore.Test.Community.Gameplay
         }
 
         [Test]
-        public void CoreCanJoiEveryParty()
+        public void CoreNpcCanJoiEveryParty()
         {
-            Assert.That(((IPartyMember)core).JoinParty(remilia.CurrentParty, remilia.CurrentParty.Password),
+            Assert.That(core.JoinParty(remilia.CurrentParty, remilia.CurrentParty.Password),
                 Is.EqualTo(PartyJoinResult.Success));
         }
     }
