@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using FiveCore.Community.Gameplay.Parties.Abstraction;
+using FiveCore.Community.Gameplay.Parties.Abstraction.Results;
 using System;
 
 namespace FiveCore.Community.Gameplay.Parties

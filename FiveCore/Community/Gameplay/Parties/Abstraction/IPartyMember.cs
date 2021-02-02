@@ -1,4 +1,6 @@
-﻿namespace FiveCore.Community.Gameplay.Parties
+﻿using FiveCore.Community.Gameplay.Parties.Abstraction.Results;
+
+namespace FiveCore.Community.Gameplay.Parties.Abstraction
 {
     public interface IPartyMember
     {

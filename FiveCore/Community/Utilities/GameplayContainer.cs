@@ -3,6 +3,7 @@ using FiveCore.Community.Gameplay;
 using FiveCore.Community.Gameplay.Characters;
 using FiveCore.Community.Gameplay.Characters.Npcs;
 using FiveCore.Community.Gameplay.Parties;
+using FiveCore.Community.Gameplay.Parties.Abstraction;
 
 namespace FiveCore.Community.Utilities
 {

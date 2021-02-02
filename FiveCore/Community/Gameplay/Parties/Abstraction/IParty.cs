@@ -1,7 +1,8 @@
-﻿using System;
+﻿using FiveCore.Community.Gameplay.Parties.Abstraction.Results;
+using System;
 using System.Collections.Generic;
 
-namespace FiveCore.Community.Gameplay.Parties
+namespace FiveCore.Community.Gameplay.Parties.Abstraction
 {
     public interface IParty
     {

@@ -2,7 +2,7 @@
 using FiveCore.Community.Gameplay;
 using FiveCore.Community.Gameplay.Characters;
 using FiveCore.Community.Gameplay.Characters.Npcs;
-using FiveCore.Community.Gameplay.Parties;
+using FiveCore.Community.Gameplay.Parties.Abstraction.Results;
 using FiveCore.Community.Utilities;
 using NUnit.Framework;
 using System;

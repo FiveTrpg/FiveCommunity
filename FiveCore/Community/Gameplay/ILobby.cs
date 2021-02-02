@@ -1,5 +1,6 @@
 ﻿using FiveCore.Community.Gameplay.Characters;
-using FiveCore.Community.Gameplay.Parties;
+using FiveCore.Community.Gameplay.Parties.Abstraction;
+using FiveCore.Community.Gameplay.Parties.Abstraction.Results;
 using System.Collections.Generic;
 
 namespace FiveCore.Community.Gameplay

@@ -1,6 +1,6 @@
 ﻿namespace FiveCore.Community.Gameplay.Characters
 {
-    public interface IUniqued
+    public interface IUnique
     {
         public string Identity { get; set; }
         public string Name { get; set; }

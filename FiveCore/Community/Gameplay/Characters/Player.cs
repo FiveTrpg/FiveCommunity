@@ -1,4 +1,4 @@
-﻿using FiveCore.Community.Gameplay.Parties;
+﻿using FiveCore.Community.Gameplay.Parties.Abstraction;
 
 namespace FiveCore.Community.Gameplay.Characters
 {

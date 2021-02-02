@@ -1,4 +1,4 @@
-﻿namespace FiveCore.Community.Gameplay.Parties
+﻿namespace FiveCore.Community.Gameplay.Parties.Abstraction.Results
 {
     public enum PartyCloseResult
     {
