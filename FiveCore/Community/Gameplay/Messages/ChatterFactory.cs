@@ -1,14 +1,22 @@
-﻿using FiveCore.Community.Gameplay.Characters;
-using FiveCore.Community.Gameplay.Messages.Channels;
-using System;
+﻿using Autofac;
+using FiveCore.Community.Gameplay.Characters;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Channels;
 
 namespace FiveCore.Community.Gameplay.Messages
 {
     public class ChatterFactory : IChannelChatterFactory
     {
-        public IChannelChatter CreateChatterFromUnique(IUnique unique)
+        public ILifetimeScope Scope { get; set; }
+        public ChatterFactory(ILifetimeScope scope)
         {
-            throw new NotImplementedException();
+            this.Scope = scope;
+        }
+        public IChannelChatter CreateChatterFromUnique(IChannel channel, IUnique unique)
+        {
+            var emptyChatter = Scope.Resolve<IChannelChatter>();
+            emptyChatter.Unique = unique;
+            emptyChatter.Channel = channel;
+            return emptyChatter;
         }
     }
 }

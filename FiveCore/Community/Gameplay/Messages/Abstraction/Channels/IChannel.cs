@@ -1,11 +1,11 @@
 ﻿using FiveCore.Community.Gameplay.Characters;
-using FiveCore.Community.Gameplay.Messages.Channels.Results;
-using FiveCore.Community.Gameplay.Messages.Messengers;
-using FiveCore.Community.Gameplay.Messages.Messengers.Results;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Channels.Results;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Messengers;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Messengers.Results;
 using System;
 using System.Collections.Generic;
 
-namespace FiveCore.Community.Gameplay.Messages.Channels
+namespace FiveCore.Community.Gameplay.Messages.Abstraction.Channels
 {
     public interface IChannel
     {
@@ -23,7 +23,7 @@ namespace FiveCore.Community.Gameplay.Messages.Channels
             if (Chatters.ContainsKey(unique.Identity)) return ChannelJoinResult.AlreadyInChannel;
             if (password != Password) return ChannelJoinResult.IncorrectPassword;
 
-            chatter = ChatterFactory.CreateChatterFromUnique(unique);
+            chatter = ChatterFactory.CreateChatterFromUnique(TODO, unique);
             Chatters.Add(unique.Identity, chatter);
             return ChannelJoinResult.Success;
         }

@@ -1,5 +1,5 @@
-﻿using FiveCore.Community.Gameplay.Messages.Channels;
-using FiveCore.Community.Gameplay.Messages.Messengers;
+﻿using FiveCore.Community.Gameplay.Messages.Abstraction.Channels;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Messengers;
 using System.Collections.Generic;
 
 namespace FiveCore.Community.Gameplay.Messages

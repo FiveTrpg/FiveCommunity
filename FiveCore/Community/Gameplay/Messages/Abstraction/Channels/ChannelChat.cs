@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FiveCore.Community.Gameplay.Messages.Channels
+namespace FiveCore.Community.Gameplay.Messages.Abstraction.Channels
 {
     public struct ChannelChat
     {

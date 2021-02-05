@@ -1,5 +1,7 @@
 ﻿using FiveCore.Community.Gameplay.Characters;
-using FiveCore.Community.Gameplay.Messages.Channels;
+using FiveCore.Community.Gameplay.Messages.Abstraction;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Channels;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Channels.Results;
 using System;
 
 namespace FiveCore.Community.Gameplay.Messages
@@ -12,9 +14,9 @@ namespace FiveCore.Community.Gameplay.Messages
 
         public event Action<ChannelChat> OnReceive;
 
-        public void SendMessage(IMessage message)
+        public ChatSendResult SendMessage(IMessage message)
         {
-            throw new NotImplementedException();
+            return Channel.SendMessage(this, message);
         }
     }
 }

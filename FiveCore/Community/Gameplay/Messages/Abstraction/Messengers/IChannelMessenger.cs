@@ -1,9 +1,9 @@
 ﻿using FiveCore.Community.Gameplay.Characters;
-using FiveCore.Community.Gameplay.Messages.Channels;
-using FiveCore.Community.Gameplay.Messages.Messengers.Results;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Channels;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Messengers.Results;
 using System.Collections.Generic;
 
-namespace FiveCore.Community.Gameplay.Messages.Messengers
+namespace FiveCore.Community.Gameplay.Messages.Abstraction.Messengers
 {
     public interface IChannelMessenger
     {

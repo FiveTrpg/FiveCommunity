@@ -7,7 +7,7 @@ using FiveCore.Community.Utilities;
 using NUnit.Framework;
 using System;
 
-namespace FiveCore.Test.Community.Gameplay
+namespace FiveCore.Test.Community.Gameplay.Parties
 {
     public class PartyTest
     {

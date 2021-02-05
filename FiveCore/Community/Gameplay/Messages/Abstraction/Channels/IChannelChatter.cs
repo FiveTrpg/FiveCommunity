@@ -1,7 +1,8 @@
 ﻿using FiveCore.Community.Gameplay.Characters;
+using FiveCore.Community.Gameplay.Messages.Abstraction.Channels.Results;
 using System;
 
-namespace FiveCore.Community.Gameplay.Messages.Channels
+namespace FiveCore.Community.Gameplay.Messages.Abstraction.Channels
 {
     public interface IChannelChatter
     {
@@ -10,6 +11,6 @@ namespace FiveCore.Community.Gameplay.Messages.Channels
         public bool Muted { get; set; }
 
         public event Action<ChannelChat> OnReceive;
-        public void SendMessage(IMessage message);
+        public ChatSendResult SendMessage(IMessage message);
     }
 }

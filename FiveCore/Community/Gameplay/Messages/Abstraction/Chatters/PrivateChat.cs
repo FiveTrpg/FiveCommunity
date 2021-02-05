@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FiveCore.Community.Gameplay.Messages.Chatters
+namespace FiveCore.Community.Gameplay.Messages.Abstraction.Chatters
 {
     public struct PrivateChat
     {

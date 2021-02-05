@@ -1,4 +1,4 @@
-﻿namespace FiveCore.Community.Gameplay.Messages
+﻿namespace FiveCore.Community.Gameplay.Messages.Abstraction
 {
     public interface IMessage
     {

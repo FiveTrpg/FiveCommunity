@@ -1,4 +1,4 @@
-﻿namespace FiveCore.Community.Gameplay.Messages.Channels.Results
+﻿namespace FiveCore.Community.Gameplay.Messages.Abstraction.Channels.Results
 {
     public enum ChannelLeaveResult
     {
